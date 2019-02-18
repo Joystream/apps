@@ -1,5 +1,5 @@
 import { BlockNumber, Balance, u32, Text } from '@polkadot/types';
-import { Proposal, ProposalStatus, ProposalVote, VoteKind } from '@polkadot/joy-utils/types';
+import { RuntimeUpgradeProposal, ProposalStatus, ProposalVote, VoteKind } from '@polkadot/joy-utils/types';
 import { AccountIds } from '@polkadot/joy-utils/accounts';
 
 export const ProposalVotesMock: ProposalVote[] = [
@@ -17,7 +17,7 @@ export const ProposalVotesMock: ProposalVote[] = [
   }
 ];
 
-export const ProposalsMock: Proposal[] = [
+export const ProposalsMock: RuntimeUpgradeProposal[] = [
   {
     id: new u32(1),
     proposer: AccountIds.Bob,

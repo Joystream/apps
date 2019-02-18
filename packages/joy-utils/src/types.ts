@@ -4,7 +4,7 @@ import { BlockNumber, AccountId, Balance, u32, Text } from '@polkadot/types';
 
 export type ProposalId = u32;
 
-export type Proposal = {
+export type RuntimeUpgradeProposal = {
   id: ProposalId,
   proposer: AccountId,
   stake: Balance,
@@ -90,7 +90,7 @@ export function registerJoystreamTypes () {
         'backing': 'Balance'
       },
       'ProposalId': 'u32',
-      'Proposal': {
+      'RuntimeUpgradeProposal': {
         'id': 'ProposalId',
         'proposer': 'AccountId',
         'stake': 'Balance',
