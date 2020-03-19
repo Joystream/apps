@@ -9,7 +9,7 @@ import { ApiProps } from '@polkadot/react-api/types';
 import { I18nProps } from '@polkadot/react-components/types';
 import { SubmittableResult } from '@polkadot/api';
 import { Option } from '@polkadot/types/codec';
-import { withMulti } from '@polkadot/react-api';
+import { withMulti, withApi } from '@polkadot/react-api';
 import { formatNumber } from '@polkadot/util';
 import { AccountId } from '@polkadot/types/interfaces';
 
@@ -313,6 +313,7 @@ class Component extends React.PureComponent<Props, State> {
 export const UploadWithRouter = withMulti(
   Component,
   translate,
+  withApi,
   withOnlyMembers,
   withDiscoveryProvider
 )
