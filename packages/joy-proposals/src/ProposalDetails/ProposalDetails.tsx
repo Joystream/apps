@@ -21,6 +21,16 @@ export type Vote = {
   createdAt: string;
 };
 
+export type DetailsProps = {
+  // FIXME: Stage, substage and type all should be an enum
+  stage?: string;
+  substage?: string;
+  expiresIn?: number;
+  type?: string;
+  createdBy?: Member;
+  createdAt?: string;
+};
+
 export type ProposalProps = {
   title?: string;
   description?: string;
@@ -30,15 +40,7 @@ export type ProposalProps = {
   };
   votes?: Vote[];
   totalVotes?: number;
-  details?: {
-    // FIXME: Stage, substage and type all should be an enum
-    stage?: string;
-    substage?: string;
-    expiresIn?: number;
-    type?: string;
-    createdBy?: Member;
-    createdAt?: string;
-  };
+  details?: DetailsProps;
   onVote?: (vote: VoteValue) => void;
   vote?: {
     hasVoted?: boolean;
