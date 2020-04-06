@@ -23,8 +23,8 @@
       margin-right: 2rem;
     }
     .label {
-      font-size: .9rem;
-      margin-bottom: .25rem;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
     }
     .value {
       font-size: 1.5rem;
@@ -32,9 +32,40 @@
   }
 }
 
+<<<<<<< HEAD
 /* Proposal forms */
 
 .ProposalForm {
   width: 100%;
   max-width: 600px;
+=======
+.text-secondary {
+  color: #999;
+}
+
+.details-container > .ui.items > .item:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ovverrides Semantic UI for the details page.*/
+.ui.items > .item:first-child {
+  margin: 1em 0;
+}
+
+.details-container {
+  display: flex;
+}
+
+.details-labels {
+  margin-bottom: 1rem;
+>>>>>>> 3efe20676... Markup Finished
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.details-param {
+  display: flex;
 }
