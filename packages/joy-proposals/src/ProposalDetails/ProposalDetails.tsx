@@ -16,9 +16,9 @@ export type Member = {
 export type VoteValue = "Approve" | "Slash" | "Abstain" | "Reject";
 
 export type Vote = {
-  value?: VoteValue;
-  by?: User;
-  createdAt?: string;
+  value: VoteValue;
+  by: Member;
+  createdAt: string;
 };
 
 export type ProposalProps = {
@@ -36,7 +36,7 @@ export type ProposalProps = {
     substage?: string;
     expiresIn?: number;
     type?: string;
-    createdBy?: User;
+    createdBy?: Member;
     createdAt?: string;
   };
   onVote?: (vote: VoteValue) => void;
@@ -58,7 +58,7 @@ export default function ProposalDetails({
 }: ProposalProps) {
   const { hasVoted = false, value = undefined } = vote || {};
   return (
-    <Container>
+    <Container className="ProposalDetails">
       <Details {...details} />
       <Body title={title} description={description} params={params} />
       <VotingSection onVote={onVote} hasVoted={hasVoted} value={value} />
