@@ -1,19 +1,16 @@
-.ProposalPreviewList {
-}
-
-.ProposalPreview {
+.Proposal {
   /* Ovverrides Semantic UI for the details page.*/
   .ui.items > .item:first-child {
     margin: 1em 0;
   }
 
+  .details-container {
+    display: flex;
+  }
+
   .ui.items > .item .extra.proposed-by {
     /* This is to ensure Proposed By: is above the name of the creator. The image is 50x50 and has 14pxs of margin right*/
     padding-left: 64px;
-  }
-
-  .details-container {
-    display: flex;
   }
 
   .center-content {

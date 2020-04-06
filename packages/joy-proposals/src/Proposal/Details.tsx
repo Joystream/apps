@@ -1,7 +1,7 @@
 import React from "react";
 import { Item, Image, Header } from "semantic-ui-react";
 
-import { DetailsProps } from "./ProposalDetails";
+import { DetailsProps } from "./Proposal";
 
 export default function Details({ stage, substage, createdAt, createdBy, type, expiresIn }: DetailsProps) {
   return (
