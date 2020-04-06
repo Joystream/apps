@@ -4,7 +4,7 @@ import { Header, Card } from "semantic-ui-react";
 import { ProposalProps } from "./Proposal";
 import Details from "./Details";
 
-import "./ProposalPreview.css";
+import "./Proposal.css";
 
 export default function ProposalPreview({ title, description, details }: ProposalProps) {
   return (

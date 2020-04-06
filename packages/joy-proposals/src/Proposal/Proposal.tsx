@@ -6,7 +6,7 @@ import Details from "./Details";
 import Body from "./Body";
 import VotingSection from "./VotingSection";
 
-import "./ProposalDetails.css";
+import "./Proposal.css";
 
 export type Member = {
   name?: string;
@@ -46,6 +46,7 @@ export type ProposalProps = {
     hasVoted?: boolean;
     value?: VoteValue;
   };
+  finalized?: "approved" | "rejected" | "slashed" | "withdrawn";
 };
 
 export default function Proposal({
