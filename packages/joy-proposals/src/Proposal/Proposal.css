@@ -24,4 +24,8 @@
   .details-param {
     display: flex;
   }
+
+  .ui.tabular.list-menu {
+    margin-bottom: 2rem;
+  }
 }

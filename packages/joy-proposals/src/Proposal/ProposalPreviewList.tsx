@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Card, Menu } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Card, Menu, Container } from "semantic-ui-react";
 
 import { ProposalProps } from "./Proposal";
 import ProposalPreview from "./ProposalPreview";
@@ -7,18 +7,53 @@ import ProposalPreview from "./ProposalPreview";
 type ProposalFilter = "all" | "active" | "withdrawn" | "approved" | "rejected" | "slashed";
 
 export default function ProposalPreviewList({ proposals }: { proposals: ProposalProps[] }) {
-  let [showedProposal, setShowedProposals] = useState(proposals);
   let [activeFilter, setActiveFilter] = useState<ProposalFilter>("all");
+  let proposalsMap = new Map();
 
-  useEffect(() => {}, [proposals]);
+  proposalsMap.set("all", proposals);
+  proposalsMap.set("withdrawn", filterProposals("withdrawn", proposals));
+  proposalsMap.set("active", filterProposals("withdrawn", proposals));
+  proposalsMap.set("approved", filterProposals("approved", proposals));
+  proposalsMap.set("rejected", filterProposals("rejected", proposals));
+  proposalsMap.set("slashed", filterProposals("slashed", proposals));
 
   return (
-    <>
-      <Menu tabular>
-        <Menu.Item name="all" active={activeFilter === "all"} onClick={() => setActiveFilter("all")} />
+    <Container className="Proposal">
+      <Menu tabular className="list-menu">
+        <Menu.Item
+          name={`all - ${proposalsMap.get("withdrawn").length} `}
+          active={activeFilter === "all"}
+          onClick={() => setActiveFilter("all")}
+        />
+        <Menu.Item
+          name={`withdrawn (${proposalsMap.get("withdrawn").length})`}
+          active={activeFilter === "withdrawn"}
+          onClick={() => setActiveFilter("withdrawn")}
+        />
+        <Menu.Item
+          name={`active (${proposalsMap.get("active").length})`}
+          active={activeFilter === "active"}
+          onClick={() => setActiveFilter("active")}
+        />
+        <Menu.Item
+          name={`approved (${proposalsMap.get("approved").length})`}
+          active={activeFilter === "approved"}
+          onClick={() => setActiveFilter("approved")}
+        />
+        <Menu.Item
+          name={`rejected (${proposalsMap.get("rejected").length})`}
+          active={activeFilter === "rejected"}
+          onClick={() => setActiveFilter("rejected")}
+        />
+        <Menu.Item
+          name={`slashed (${proposalsMap.get("slashed").length})`}
+          active={activeFilter === "slashed"}
+          onClick={() => setActiveFilter("slashed")}
+        />
       </Menu>
+
       <Card.Group>
-        {proposals.map((prop, idx) => (
+        {proposalsMap.get(activeFilter).map((prop, idx) => (
           <ProposalPreview
             key={`${prop.title}-${idx}`}
             title={prop.title}
@@ -27,6 +62,16 @@ export default function ProposalPreviewList({ proposals }: { proposals: Proposal
           />
         ))}
       </Card.Group>
-    </>
+    </Container>
   );
+}
+
+function filterProposals(filter, proposals) {
+  if (filter === "all") {
+    return proposals;
+  } else if (filter === "active") {
+    return proposals.filter((prop) => prop.details.stage === "active");
+  }
+
+  return proposals.filter((prop) => prop.finalized === filter);
 }
