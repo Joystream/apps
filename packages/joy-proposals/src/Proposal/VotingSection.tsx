@@ -1,9 +1,9 @@
 import React from "react";
 
-import { Icon, Button, Message, Divider, Header } from "semantic-ui-react";
+import { Icon, Button, Message } from "semantic-ui-react";
 
 import Section from "@polkadot/joy-utils/Section";
-import { VoteValue } from "./ProposalDetails";
+import { VoteValue } from "./Proposal";
 import useVoteStyles from "./useVoteStyles";
 
 type VotingSectionProps = {

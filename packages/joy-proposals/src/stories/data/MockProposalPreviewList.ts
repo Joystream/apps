@@ -1,6 +1,6 @@
-import { ProposalPreviewProps } from "../../ProposalPreview/ProposalPreview";
+import { ProposalProps } from "../../Proposal/Proposal";
 
-const MockProposalPreviewList: ProposalPreviewProps[] = [
+const MockProposalPreviewList: ProposalProps[] = [
   {
     title: "Send me some tokens for coffee",
     description:
@@ -9,13 +9,13 @@ const MockProposalPreviewList: ProposalPreviewProps[] = [
     details: {
       createdBy: {
         name: "Satoshi",
-        avatar: "https://react.semantic-ui.com/images/avatar/large/steve.jpg"
+        avatar: "https://react.semantic-ui.com/images/avatar/large/steve.jpg",
       },
       stage: "Active",
       createdAt: "Mar 25, 2020 at 14:20",
       type: "Spending Proposal",
-      expiresIn: 5678
-    }
+      expiresIn: 5678,
+    },
   },
   {
     title: "Send me some tokens for coffee",
@@ -25,14 +25,14 @@ const MockProposalPreviewList: ProposalPreviewProps[] = [
     details: {
       createdBy: {
         name: "David Douglas",
-        avatar: "https://react.semantic-ui.com/images/avatar/large/elliot.jpg"
+        avatar: "https://react.semantic-ui.com/images/avatar/large/elliot.jpg",
       },
       stage: "Active",
       createdAt: "Mar 25, 2020 at 14:20",
       type: "Spending Proposal",
-      expiresIn: 5678
-    }
-  }
+      expiresIn: 5678,
+    },
+  },
 ];
 
 export default MockProposalPreviewList;

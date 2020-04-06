@@ -48,7 +48,7 @@ export type ProposalProps = {
   };
 };
 
-export default function ProposalDetails({
+export default function Proposal({
   title,
   description,
   params,
@@ -56,11 +56,11 @@ export default function ProposalDetails({
   votes,
   totalVotes,
   onVote,
-  vote
+  vote,
 }: ProposalProps) {
   const { hasVoted = false, value = undefined } = vote || {};
   return (
-    <Container className="ProposalDetails">
+    <Container className="Proposal">
       <Details {...details} />
       <Body title={title} description={description} params={params} />
       <VotingSection onVote={onVote} hasVoted={hasVoted} value={value} />
