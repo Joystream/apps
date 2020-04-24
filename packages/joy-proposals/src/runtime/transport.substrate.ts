@@ -37,6 +37,10 @@ export class SubstrateTransport extends Transport {
     return this.api.query.proposalsCodex;
   }
 
+  get totalIssuance() {
+    return 40608000;
+  }
+
   async proposalCount() {
     return this.proposalsEngine.proposalCount<u32>();
   }
