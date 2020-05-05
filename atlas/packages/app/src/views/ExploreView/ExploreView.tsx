@@ -1,20 +1,65 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { RouteComponentProps, navigate } from "@reach/router"
 import { GenericSection, VideoPreview, ChannelSummary, Grid } from "components"
+import { useTransportContext } from './../../providers/TransportContext'
+import { useMyMembership } from '@polkadot/joy-utils/MyMembershipContext';
 
-type ExploreViewProps = {
-  videos: any
-  channels: any
-} & RouteComponentProps
+type ExploreViewProps = {} & RouteComponentProps
 
-export default function ExploreView({
-  channels,
-  videos
-}: ExploreViewProps) {
+export default function ExploreView({}: ExploreViewProps) {
 
-  let allVideos: any[] = Object.values(videos).flat()
-  let allChannels: any[] = Object.values(channels)
+  let allVideos: any[] = []
+  let allChannels: any[] = []
+  let channels: any[] = []
 
+  const transport = useTransportContext();
+  const { myAddress, myMemberId } = useMyMembership();
+  const resolverProps = { transport, myAddress, myMemberId }
+  
+  const [ resolvedProps, setResolvedProps ] = useState({} as any);
+  const [ propsResolved, setPropsResolved ] = useState(false);
+
+  const rerenderDeps = [ myAddress ]
+
+  useEffect(() => {
+
+    async function doResolveProps () {
+      
+      console.log('Resolving props of media view');
+
+      // Transport session allows us to cache loaded channels, entites and classes
+      // during the render of this view:
+      transport.openSession()
+      const data = await resolveProps(resolverProps)
+      console.log(data)
+      setResolvedProps(data);
+      transport.closeSession()
+      setPropsResolved(true);
+    }
+
+    if (!transport) {
+      console.error('Transport is not defined');
+    } else {
+      doResolveProps();
+    }
+  }, rerenderDeps);
+
+  const resolveProps = async ({ transport }) => {
+    const [
+      latestVideoChannels,
+      latestVideos,
+      featuredVideos
+    ] = await Promise.all([
+      transport.latestPublicVideoChannels(),
+      transport.latestPublicVideos(),
+      transport.featuredVideos()
+    ])
+
+    return { featuredVideos, latestVideos, latestVideoChannels }
+  }
+
+  if (!propsResolved) return null
+  
   return (
     <>
       <GenericSection topDivider title="Latest Videos" linkText="All Videos" onLinkClick={() => {}}>

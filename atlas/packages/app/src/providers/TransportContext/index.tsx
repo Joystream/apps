@@ -1,0 +1,37 @@
+import React, { useEffect, useState, useContext, createContext } from 'react';
+import { MediaTransport } from './MediaTransport';
+import { SubstrateTransport } from './SubstrateTransport';
+import ApiContext from '@polkadot/react-api/ApiContext';
+import { ApiProps } from '@polkadot/react-api/types';
+
+export const TransportContext = createContext<MediaTransport>(undefined as unknown as MediaTransport);
+
+export const useTransportContext = () =>
+  useContext(TransportContext)
+
+export const SubstrateTransportProvider = (props: React.PropsWithChildren<{}>) => {
+  const api: ApiProps = useContext(ApiContext);
+  const [ transport, setTransport ] = useState<SubstrateTransport>()
+  const [ loaded, setLoaded ] = useState<boolean>()
+  
+  useEffect(() => {
+    const load = async () => {
+      if (!loaded && api && api.isApiReady) {
+        setTransport(new SubstrateTransport(api))
+        setLoaded(true)
+      }
+    }
+    load()
+  }, [loaded])
+
+  if (!transport) {
+    // Substrate API is not ready yet.
+    return null
+  }
+
+  return (
+    <TransportContext.Provider value={transport}>
+      {props.children}
+    </TransportContext.Provider>
+  )
+}

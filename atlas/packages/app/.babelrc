@@ -1,11 +1,22 @@
 {
-  "presets": [
-    "react",
+  // "presets": [
+  //   // "@babel/preset-env",
+  //   // "@babel/preset-react",
+  //   // "@emotion/babel-preset-css-prop",
+  //   // "@babel/preset-typescript"
+  // ],
+  "plugins": [
     [
-      "env",
+      "module-resolver",
       {
-        "targets": {
-          "browsers": ["last 2 versions"]
+        "root": ["./src"],
+        "alias": {
+          "@polkadot/joy-utils": "./../../../packages/joy-utils/src",
+          "@polkadot/joy-utils/*": "./../../../packages/joy-utils/src/*",
+          "@joystream/types": "./../../../packages/joy-types/src",
+          "@joystream/types/*": "./../../../packages/joy-types/src/*",
+          "@polkadot/members": "./../../../packages/joy-members/src",
+          "@polkadot/members/*": "./../../../packages/joy-members/src/*"
         }
       }
     ]
