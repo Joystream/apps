@@ -42,8 +42,8 @@ const ClassNamesThatRequireLoadingInternals: ClassName[] = [
 
 /**
  * There are such group of entities that are safe to cache
- * becase they serve as utility entities. 
- * Very unlikely that their values will be changed frequently. 
+ * becase they serve as utility entities.
+ * Very unlikely that their values will be changed frequently.
  * Even if changed, this is not a big issue from UI point of view.
  */
 const ClassNamesThatCanBeCached: ClassName[] = [
@@ -144,7 +144,7 @@ export class SubstrateTransport extends MediaTransport {
       const channel = tuple[0] as Channel
       const id = asChannelId(ids[i])
       const plain = ChannelCodec.fromSubstrate(id, channel)
-      
+
       return {
         ...plain,
         rewardEarned: new BN(0), // TODO calc this value based on chain data
@@ -294,39 +294,44 @@ export class SubstrateTransport extends MediaTransport {
       .filter(entity => clazz.id.eq(entity.classId)) as T[]
 
     console.log(`Found ${filteredEntities.length} plain entities by class name '${className}'`)
-    
+
     return filteredEntities
   }
 
   async toPlainEntitiesAndResolveInternals(entities: Entity[]): Promise<PlainEntity[]> {
-    
+
     const loadEntityById = this.entityCache.getOrLoadById.bind(this.entityCache)
     const loadChannelById = this.channelCache.getOrLoadById.bind(this.channelCache)
 
     const entityCodecResolver = await this.getEntityCodecResolver()
     const loadableClassIds = await this.classNamesToIdSet(ClassNamesThatRequireLoadingInternals)
 
-    const convertions: Promise<PlainEntity>[] = []
+    const converted: PlainEntity[] = [];
     for (const entity of entities) {
-      const classIdStr = entity.class_id.toString()
-      const codec = entityCodecResolver.getCodecByClassId(entity.class_id)
-      
+      const classIdStr = entity.class_id.toString();
+      const codec = entityCodecResolver.getCodecByClassId(entity.class_id);
+
       if (!codec) {
-        console.warn(`No entity codec found by class id: ${classIdStr}`)
-        continue
+        console.warn(`No entity codec found by class id: ${classIdStr}`);
+        continue;
       }
 
-      const loadInternals = loadableClassIds.has(classIdStr)
-      convertions.push(
-        codec.toPlainObject(
+      const loadInternals = loadableClassIds.has(classIdStr);
+
+      try {
+        converted.push(await codec.toPlainObject(
           entity, {
             loadInternals,
-            loadEntityById, 
+            loadEntityById,
             loadChannelById
-          }))
+          })
+        );
+      } catch(conversionError) {
+        console.error(conversionError);
+      }
     }
 
-    return Promise.all(convertions)
+    return converted;
   }
 
   // Load entities by class name:
