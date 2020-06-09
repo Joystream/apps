@@ -1,0 +1,48 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  font-size: 16px;
+}
+
+.title {
+  font-size: 64px;
+  text-transform: initial;
+}
+
+.body-text {
+  font-size: 18px;
+  width: 400px;
+  margin: 3rem 0;
+  text-align: center;
+}
+
+.form-container {
+  width: 600px;
+}
+
+.register-title {
+  font-size: 36px;
+  text-transform: initial;
+}
+
+.register-checkbox-container {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.profile-avatar {
+  width: 128px;
+  height: 128px;
+  border-radius: 100%;
+  border: 2px solid #d0d8e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
